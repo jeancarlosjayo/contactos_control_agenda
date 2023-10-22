@@ -65,7 +65,10 @@ public class ClienteRegistroActivity extends AppCompatActivity {
             optionConfig(option, id);
         }
     }
-
+    /**
+     * @param option La opción seleccionada por el usuario en la interfaz
+     * @param id El id del cliente seleccionado
+     **/
     private void optionConfig(String option, String id) {
 
         switch (option) {
@@ -82,7 +85,9 @@ public class ClienteRegistroActivity extends AppCompatActivity {
         }
 
     }
-
+    /**
+     * Configura la vista para crear un nuevo cliente
+     **/
     private void registerConfig() {
         titulo.setText("Nuevo Cliente");
         //Guardar los datos
@@ -94,7 +99,9 @@ public class ClienteRegistroActivity extends AppCompatActivity {
             validateFields(nombre, domicilio, cp, poblacion, "1");
         });
     }
-
+    /**
+     * Configura la vista para modificar un cliente
+     **/
     private void updateConfig(String id) {
         //Cambiar el título de la aplicación
         titulo.setText("Editar Cliente");
@@ -114,7 +121,9 @@ public class ClienteRegistroActivity extends AppCompatActivity {
             validateFields(nombre, domicilio, cp, poblacion, "2");
         });
     }
-
+    /**
+     * Configura la vista para visualizar un Cliente
+     **/
     private void visualizerConfig(String id) {
         //Cambiar el título de la aplicación
         titulo.setText("");
@@ -173,7 +182,9 @@ public class ClienteRegistroActivity extends AppCompatActivity {
             }
         }
     }
-
+    /**
+     * Actualizar datos en la tabla de cliente
+     **/
     private void actualizarCliente(String nombre, String domicilio, String cp, String poblacion) {
         ClienteDB clienteDB = new ClienteDB(ClienteRegistroActivity.this);
         boolean updated = clienteDB.update(Integer.parseInt(idCliente), nombre, domicilio, cp, poblacion);

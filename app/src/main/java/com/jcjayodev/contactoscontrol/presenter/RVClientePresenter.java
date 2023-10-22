@@ -16,7 +16,9 @@ public class RVClientePresenter {
         this.view = view;
         this.context = context;
     }
-
+    /**
+     * Cargar los datos de la tabla de Clientes
+     **/
     public void loadData() {
         // Obtener los datos del modelo (por ejemplo, desde una base de datos o una API
         List<Cliente> itemList;
@@ -25,7 +27,9 @@ public class RVClientePresenter {
         // Pasar los datos a la Vista para mostrarlos en el RecyclerView
         view.showData(itemList);
     }
-
+    /**
+     * Busca un elemento en la tabla de Clientes
+     **/
     public void searchElement(String cadena) {
         // Obtener los datos del modelo (por ejemplo, desde una base de datos o una API
         List<Cliente> itemList;

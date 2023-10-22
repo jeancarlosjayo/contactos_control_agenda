@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteListaActivity extends AppCompatActivity implements RVClienteView {
+    //Declaracion de variables
     FloatingActionButton addClientButton;
     private RecyclerView recyclerView;
     private RVClienteAdapter adapter;
@@ -31,18 +32,22 @@ public class ClienteListaActivity extends AppCompatActivity implements RVCliente
     SearchView searchView;
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cliente_lista);
         recyclerView = findViewById(R.id.recyclerView);
         searchView = findViewById(R.id.searchView);
+        //Configuracion de RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Configuracion de Adapter
         adapter = new RVClienteAdapter(this);
+        //Asignacion de Adapter
         recyclerView.setAdapter(adapter);
+        //Configuracion de Presenter
         presenter = new RVClientePresenter(this, ClienteListaActivity.this);
-        //presenter.loadData();
+        //Configuracion de Boton Añadir
         addClientButton = findViewById(R.id.addBtnClientButton);
+        //Boton para crear un nuevo registro de cliente
         addClientButton.setOnClickListener(v -> {
             Intent intent = new Intent(ClienteListaActivity.this, ClienteRegistroActivity.class);
             intent.putExtra("option", "1");
@@ -51,6 +56,7 @@ public class ClienteListaActivity extends AppCompatActivity implements RVCliente
             Log.i("option", "1");
             startActivity(intent);
         });
+        //Buscar un elemento en la tabla de Clientes
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -73,31 +79,36 @@ public class ClienteListaActivity extends AppCompatActivity implements RVCliente
             }
         });
     }
-
+    /**
+     * Cargar los datos de la tabla de Clientes cada que la actividad se vuelve visible
+     **/
     @Override
     protected void onResume() {
         super.onResume();
         Log.i("onResume", "onResume");
         presenter.loadData();
     }
-
+    /**
+     * Muestra los datos de la tabla de Clientes
+     **/
     @Override
     public void showData(List<Cliente> itemList) {
         if (adapter != null) {
             adapter.setData(itemList);
         }
     }
-
+    /**
+     *Gestiona el clic en un elemento de la tabla de Clientes
+     **/
     @Override
     public void onItemClick(Cliente item) {
         // Opciones
         final String[] options = {"Abrir lista de contactos", "Detalle del cliente", "Editar", "Eliminar"};
 
-        // Crear el AlertDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Opciones").setItems(options, (dialog, which) -> {
             String selectedOption = options[which];
-
+            //Accion de abrir lista de contactos
             if (selectedOption.equals("Abrir lista de contactos")) {
                 Intent intent = new Intent(ClienteListaActivity.this, ContactoListaActivity.class);
                 intent.putExtra("id", String.valueOf(item.getId()));
@@ -105,7 +116,7 @@ public class ClienteListaActivity extends AppCompatActivity implements RVCliente
                 Log.i("option", "Abrir lista de contactos");
                 startActivity(intent);
             }
-
+            //Accion de detalles
             if (selectedOption.equals("Detalle del cliente")) {
                 dialog.dismiss();
                 Intent intent = new Intent(ClienteListaActivity.this, ClienteRegistroActivity.class);
@@ -115,6 +126,7 @@ public class ClienteListaActivity extends AppCompatActivity implements RVCliente
                 Log.i("option", "2");
                 startActivity(intent);
             }
+            //Accion de editar
             if (selectedOption.equals("Editar")) {
                 dialog.dismiss();
                 Intent intent = new Intent(ClienteListaActivity.this, ClienteRegistroActivity.class);
@@ -124,6 +136,7 @@ public class ClienteListaActivity extends AppCompatActivity implements RVCliente
                 Log.i("option", "3");
                 startActivity(intent);
             }
+            //Accion de eliminar
             if (selectedOption.equals("Eliminar")) {
                 dialog.dismiss();
                 AlertDialog.Builder eliminarBuilder = new AlertDialog.Builder(this);
@@ -139,10 +152,12 @@ public class ClienteListaActivity extends AppCompatActivity implements RVCliente
             }
         });
         AlertDialog alertDialog = builder.create();
-        // Mostrar el AlertDialog
+        // Mostrar el dialogo
         alertDialog.show();
     }
-
+    /**
+     * Verifica si existen contactos en el Cliente
+     **/
     private void checkContactsCount(int id) {
         ContactoDB contactoDB = new ContactoDB(ClienteListaActivity.this);
         ArrayList<Contacto> deleted = contactoDB.getAll(id);

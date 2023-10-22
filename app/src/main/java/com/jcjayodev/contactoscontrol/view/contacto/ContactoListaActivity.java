@@ -24,6 +24,7 @@ import com.jcjayodev.contactoscontrol.presenter.RVContactoPresenter;
 import java.util.List;
 
 public class ContactoListaActivity extends AppCompatActivity implements RVContactoView {
+    //Declaracion de variables
     String idCliente;
     TextView title;
     Cliente cliente;
@@ -57,11 +58,15 @@ public class ContactoListaActivity extends AppCompatActivity implements RVContac
         }
         recyclerView = findViewById(R.id.recyclerView);
         searchView = findViewById(R.id.searchView);
+        //Configuracion de RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Configuracion de Adapter
         adapter = new RVContactoAdapter(this);
+        //Asignacion de Adapter
         recyclerView.setAdapter(adapter);
+        //Configuracion de Presenter
         presenter = new RVContactoPresenter(this, ContactoListaActivity.this);
-        //presenter.loadData();
+        //Configuracion de Boton Añadir
         addContactButton = findViewById(R.id.floatingActionButton);
         addContactButton.setOnClickListener(v -> {
             Intent intent = new Intent(ContactoListaActivity.this, ContactoRegistroActivity.class);
@@ -72,6 +77,7 @@ public class ContactoListaActivity extends AppCompatActivity implements RVContac
             Log.i("option", "1");
             startActivity(intent);
         });
+        //Buscar un elemento en la tabla de Contactos
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -93,22 +99,32 @@ public class ContactoListaActivity extends AppCompatActivity implements RVContac
                 return false;
             }
         });
+        //Boton para regresar
         backButton.setOnClickListener(v -> {
             onBackPressed();
         });
     }
 
+    /**
+     * Evento para regresar
+     **/
     @Override
     public void onBackPressed() {
         finish();
     }
 
+    /**
+     * Cargar los datos del elemento cliente
+     **/
     private void loadInfoCliente(String id) {
         ClienteDB db = new ClienteDB(this);
         cliente = db.getItem(Integer.parseInt(id));
         title.setText("Lista de Contactos de " + cliente.getNombre());
     }
 
+    /**
+     * Cargar los datos de la tabla de Contactos cada que la actividad se vuelve visible
+     **/
     @Override
     protected void onResume() {
         super.onResume();
@@ -116,6 +132,9 @@ public class ContactoListaActivity extends AppCompatActivity implements RVContac
         presenter.loadData(Integer.parseInt(idCliente));
     }
 
+    /**
+     * Muestra los datos de la tabla de Contactos en el RecyclerView
+     **/
     @Override
     public void showData(List<Contacto> itemList) {
         if (adapter != null) {
@@ -123,6 +142,9 @@ public class ContactoListaActivity extends AppCompatActivity implements RVContac
         }
     }
 
+    /**
+     * Gestiona el clic en un elemento de la tabla de Contactos
+     **/
     @Override
     public void onItemClick(Contacto item) {
         // Opciones
@@ -132,7 +154,7 @@ public class ContactoListaActivity extends AppCompatActivity implements RVContac
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Opciones").setItems(options, (dialog, which) -> {
             String selectedOption = options[which];
-
+            //Accion de detalles
             if (selectedOption.equals("Detalle del contacto")) {
                 dialog.dismiss();
                 Intent intent = new Intent(ContactoListaActivity.this, ContactoRegistroActivity.class);
@@ -143,6 +165,7 @@ public class ContactoListaActivity extends AppCompatActivity implements RVContac
                 Log.i("option", "2");
                 startActivity(intent);
             }
+            //Accion de editar
             if (selectedOption.equals("Editar")) {
                 dialog.dismiss();
                 Intent intent = new Intent(ContactoListaActivity.this, ContactoRegistroActivity.class);
@@ -153,6 +176,7 @@ public class ContactoListaActivity extends AppCompatActivity implements RVContac
                 Log.i("option", "3");
                 startActivity(intent);
             }
+            //Accion de eliminar
             if (selectedOption.equals("Eliminar")) {
                 dialog.dismiss();
                 AlertDialog.Builder eliminarBuilder = new AlertDialog.Builder(this);

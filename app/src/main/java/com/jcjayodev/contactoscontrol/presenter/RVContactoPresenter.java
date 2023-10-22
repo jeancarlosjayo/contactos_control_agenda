@@ -16,14 +16,18 @@ public class RVContactoPresenter {
         this.view = view;
         this.context = context;
     }
-
+    /**
+     * Cargar los datos de la tabla de Contactos
+     **/
     public void loadData(int id) {
         List<Contacto> itemList;
         ContactoDB db = new ContactoDB(context);
         itemList = db.getAll(id);
         view.showData(itemList);
     }
-
+    /**
+     * Busca un elemento en la tabla de Contactos
+     **/
     public void searchElement(String cadena) {
         List<Contacto> itemList;
         ContactoDB db = new ContactoDB(context);

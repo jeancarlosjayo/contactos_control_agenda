@@ -15,6 +15,7 @@ import com.jcjayodev.contactoscontrol.model.Contacto;
 import com.jcjayodev.contactoscontrol.model.database.ContactoDB;
 
 public class ContactoRegistroActivity extends AppCompatActivity {
+    //Declaracion de variables
     EditText nombreEdt;
     EditText telefonoEdt;
     EditText emailEdt;
@@ -64,6 +65,10 @@ public class ContactoRegistroActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * @param option La opción seleccionada por el usuario en la interfaz
+     * @param id     El id del cliente seleccionado
+     **/
     private void optionConfig(String option, String id) {
 
         switch (option) {
@@ -81,6 +86,9 @@ public class ContactoRegistroActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Configura la vista para actualizar un Contacto
+     **/
     private void updateConfig(String id) {
         //Cambiar el título de la aplicación
         titulo.setText("Editar Cliente");
@@ -99,6 +107,9 @@ public class ContactoRegistroActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Configura la vista para visualizar un Contacto
+     **/
     private void visualizerConfig(String id) {
         //Cambiar el título de la aplicación
         titulo.setText("");
@@ -117,6 +128,9 @@ public class ContactoRegistroActivity extends AppCompatActivity {
         saveButton.setVisibility(View.GONE);
     }
 
+    /**
+     * Configura la vista para crear un nuevo Contacto
+     **/
     private void registerConfig() {
         titulo.setText("Nuevo Contacto");
         //Guardar los datos
@@ -128,6 +142,9 @@ public class ContactoRegistroActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Valida los campos
+     **/
     private void validateFields(String nombre, String telefono, String email, String option, String idCliente) {
         if (nombre.isEmpty()) {
             nombreEdt.setError("El nombre es obligatorio");

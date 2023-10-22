@@ -17,30 +17,40 @@ import java.util.List;
 public class RVClienteAdapter extends RecyclerView.Adapter<RVClienteAdapter.ViewHolder> {
     private List<Cliente> itemList;
     private RVClienteView view;
-
+    /**
+     * Constructor
+     **/
     public RVClienteAdapter(RVClienteView view) {
         this.view = view;
         itemList = new ArrayList<>();
     }
-
+    /**
+     * Asigna los datos
+     **/
     public void setData(List<Cliente> itemList) {
         this.itemList = itemList;
         notifyDataSetChanged();
     }
-
+    /**
+     * Crea un elemento
+     **/
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cliente, parent, false);
         return new ViewHolder(view);
     }
-
+    /**
+     *  Asigna los datos de un elemento
+     **/
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Cliente item = itemList.get(position);
         holder.bind(item);
     }
-
+    /**
+     * Obtiene la cantidad de elementos
+     **/
     @Override
     public int getItemCount() {
         return itemList.size();
@@ -52,7 +62,9 @@ public class RVClienteAdapter extends RecyclerView.Adapter<RVClienteAdapter.View
         private final TextView domicilio;
         private final TextView cp;
         private final TextView poblacion;
-
+        /**
+         * Vincular los elementos de la interfaz
+         **/
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.nombre);
@@ -61,7 +73,9 @@ public class RVClienteAdapter extends RecyclerView.Adapter<RVClienteAdapter.View
             poblacion = itemView.findViewById(R.id.poblacion);
             itemView.setOnClickListener(this);
         }
-
+        /**
+         * Asigna los datos de un elemento
+         **/
         public void bind(Cliente item) {
             nombre.setText(item.getNombre());
             domicilio.setText("Domicilio: " + item.getDomicilio());
@@ -69,6 +83,9 @@ public class RVClienteAdapter extends RecyclerView.Adapter<RVClienteAdapter.View
             poblacion.setText("Población: " + item.getPoblacion());
         }
 
+        /**
+         * Implementa la interfaz OnClickListener
+         **/
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();

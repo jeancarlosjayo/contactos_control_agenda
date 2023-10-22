@@ -7,6 +7,9 @@ import android.util.Log;
 import com.jcjayodev.contactoscontrol.model.database.DBHelper;
 
 public class MyAplication extends Application {
+    /**
+     * Este método se llama al crear la aplicación y crea la base de datos
+     **/
     @Override
     public void onCreate() {
         super.onCreate();

@@ -18,16 +18,25 @@ public class RVContactoAdapter extends RecyclerView.Adapter<RVContactoAdapter.Vi
     private List<Contacto> itemList;
     private RVContactoView view;
 
+    /**
+     * Constructor
+     **/
     public RVContactoAdapter(RVContactoView view) {
         this.view = view;
         itemList = new ArrayList<>();
     }
 
+    /**
+     * Asigna los datos
+     **/
     public void setData(List<Contacto> itemList) {
         this.itemList = itemList;
         notifyDataSetChanged();
     }
 
+    /**
+     * Crea un elemento
+     **/
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,12 +44,18 @@ public class RVContactoAdapter extends RecyclerView.Adapter<RVContactoAdapter.Vi
         return new ViewHolder(view);
     }
 
+    /**
+     * Asigna los datos de un elemento
+     **/
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Contacto item = itemList.get(position);
         holder.bind(item);
     }
 
+    /**
+     * Obtiene la cantidad de elementos
+     **/
     @Override
     public int getItemCount() {
         return itemList.size();
@@ -60,12 +75,18 @@ public class RVContactoAdapter extends RecyclerView.Adapter<RVContactoAdapter.Vi
             itemView.setOnClickListener(this);
         }
 
+        /**
+         * Asigna los datos
+         **/
         public void bind(Contacto item) {
             nombre.setText(item.getNombre());
             telefono.setText("Telefono: " + item.getTelefono());
             email.setText("Email: " + item.getEmail());
         }
 
+        /**
+         * Implementa la interfaz OnClickListener
+         **/
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
