@@ -29,10 +29,10 @@ public class ClienteDB extends DBHelper {
             DBHelper dbHelper = new DBHelper(context);
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
-            values.put("nombre", nombre);
-            values.put("domicilio", domicilio);
-            values.put("codigo_postal", cp);
-            values.put("poblacion", poblacion);
+            values.put("nombre", nombre.trim());
+            values.put("domicilio", domicilio.trim());
+            values.put("codigo_postal", cp.trim());
+            values.put("poblacion", poblacion.trim());
 
             // Consulta para verificar si el registro ya existe
             String[] projection = {"nombre"};
@@ -112,7 +112,7 @@ public class ClienteDB extends DBHelper {
         DBHelper dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         try {
-            db.execSQL("UPDATE " + TABLE_CLIENTES + " SET nombre = '" + nombre + "', domicilio = '" + domicilio + "', codigo_postal = '" + cp + "', poblacion = '" + poblacion + "' WHERE id = '" + id + "' ");
+            db.execSQL("UPDATE " + TABLE_CLIENTES + " SET nombre = '" + nombre.trim() + "', domicilio = '" + domicilio.trim() + "', codigo_postal = '" + cp.trim() + "', poblacion = '" + poblacion.trim() + "' WHERE id = '" + id + "' ");
             updated = true;
         } catch (Exception e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();

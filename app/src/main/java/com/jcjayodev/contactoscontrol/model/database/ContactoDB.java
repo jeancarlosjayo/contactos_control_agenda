@@ -8,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.jcjayodev.contactoscontrol.model.Cliente;
 import com.jcjayodev.contactoscontrol.model.Contacto;
 
 import java.util.ArrayList;
@@ -32,9 +31,9 @@ public class ContactoDB extends DBHelper {
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             ContentValues values = new ContentValues();
             values.put("cliente_id", cliente);
-            values.put("nombre", nombre);
-            values.put("telefono", telefono);
-            values.put("email", email);
+            values.put("nombre", nombre.trim());
+            values.put("telefono", telefono.trim());
+            values.put("email", email.trim());
 
             // Consulta para verificar si el registro ya existe
             String[] projection = {"nombre"};
@@ -112,7 +111,7 @@ public class ContactoDB extends DBHelper {
         DBHelper dbHelper = new DBHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         try {
-            db.execSQL("UPDATE " + TABLE_CONTACT0S + " SET nombre = '" + nombre + "', telefono = '" + telefono + "', email = '" + email + "' WHERE id = '" + id + "' ");
+            db.execSQL("UPDATE " + TABLE_CONTACT0S + " SET nombre = '" + nombre.trim() + "', telefono = '" + telefono.trim() + "', email = '" + email.trim() + "' WHERE id = '" + id + "' ");
             updated = true;
         } catch (Exception e) {
             Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
